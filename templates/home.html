@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <link rel="stylesheet" href="static/css/index.css" />
+
+    <style>
+      .flash-messages {
+        position: fixed;
+        top: 8%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .alert {
+        padding: 15px;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        min-width: 450px;
+        max-width: 350px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+      }
+      .alert :first-child {
+        width: 100%;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-right: 95%;
+      }
+
+      .alert.success {
+        background-color: #4caf50;
+      } /* Verde */
+      .alert.danger {
+        background-color: #f44336;
+      } /* Vermelho */
+      .alert.warning {
+        background-color: #ff9800;
+      } /* Laranja */
+      .alert.info {
+        background-color: #2196f3;
+      } /* Azul */
+
+      .close-btn {
+        margin-top: 100px;
+        background: none;
+        border: none;
+        border-radius: 8px;
+        padding-top: 25px;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+      }
+      button {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container">
+      <h1>Sistema de Anuncios</h1>
+
+      <!-- Exibir mensagens flash -->
+      <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=True) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="alert {{ category }}">
+          <div><button class="close-btn">&times;</button></div>
+          <div>{{ message }}</div>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+
+      <div class="botoes">
+        <button onclick="redirect_cadastro()">Cadastrar Anuncios</button>
+        <button onclick="redirect_visualizar()">Visualizar Anuncios</button>
+      </div>
+    </section>
+    <script>
+      function redirect_cadastro() {
+        window.location.href = "/cadastro";
+      }
+
+      function redirect_visualizar() {
+        window.location.href = "/anuncio";
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const alerts = document.querySelectorAll(".alert");
+
+        alerts.forEach((alert) => {
+          // Remove automaticamente após 5 segundos
+          setTimeout(() => {
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+          }, 1000);
+
+          // Remove ao clicar no botão de fechar
+          alert.querySelector(".close-btn").addEventListener("click", () => {
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

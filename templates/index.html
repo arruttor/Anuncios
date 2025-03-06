@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Cadastro de Anúncios</title>
+    <link rel="stylesheet" href="static/css/index.css" />
+
+    <script></script>
+  </head>
+
+  <body>
+    <section class="container">
+      <form action="/" method="post" enctype="multipart/form-data">
+        <h1>Formulário</h1>
+        <div class="meio">
+          <label class="file-label">
+            Escolher arquivo
+            <input
+              type="file"
+              class="file-input"
+              id="file"
+              name="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onchange="updateFileName()"
+            />
+          </label>
+          <span id="file-name">Nenhuma imagem escolhida</span>
+          <br />
+
+          <img id="preview" alt="Prévia da imagem" />
+          <input type="hidden" name="largura" id="largura">
+          <input type="hidden" name="altura" id="altura">
+
+          <button type="submit" onclick="processarForm(event)">Enviar</button>
+        </div>
+      </form>
+    </section>
+
+    <script>
+      function processarForm(event) {
+        const input = document.getElementById("file");
+        if (input.files.length > 0) {
+          const file = input.files[0];
+          const fileName = file.name;
+
+          // Previne o envio do formulário
+          event.preventDefault();
+          const img = new Image();
+          img.src = URL.createObjectURL(file);
+          img.onload = function() {
+            const largura = img.width;
+            const altura = img.height;
+
+            document.getElementById("largura").value = largura;
+            document.getElementById("altura").value = altura;
+
+            // Envia o formulário
+            event.target.form.submit();
+          };
+        } else {
+          alert("Nenhum arquivo selecionado.");
+        }
+      }
+
+      function updateFileName() {
+        const input = document.getElementById("file");
+        const fileName = document.getElementById("file-name");
+        const preview = document.getElementById("preview");
+        console.log(fileName);
+
+        if (input.files.length > 0) {
+          const file = input.files[0];
+
+          // Verifica se o arquivo é realmente uma imagem
+          if (file.type.startsWith("image/")) {
+            fileName.textContent = file.name;
+
+            // Criar um objeto URL para exibir a prévia da imagem
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              preview.src = e.target.result;
+              preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          } else {
+            fileName.textContent = "Arquivo inválido. Selecione uma imagem.";
+            preview.style.display = "none";
+          }
+        } else {
+          fileName.textContent = "Nenhuma imagem escolhida";
+          preview.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
