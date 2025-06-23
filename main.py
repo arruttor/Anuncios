@@ -2,6 +2,10 @@ from flask import Flask, redirect, render_template, request, flash, url_for
 import os
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
+from flask_socketio import SocketIO
+import gevent
+import gevent.monkey
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,7 +21,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500MB
+
 db = SQLAlchemy(app)
+
+gevent.monkey.patch_all()
+
+socketio = SocketIO(app, async_mode='gevent')
 
 # Modelo do Banco de Dados
 class Anuncio(db.Model):
@@ -84,7 +94,7 @@ def home():
 
         
         flash("Arquivo enviado com sucesso!", "success")
-
+        socketio.emit('atualizar_anuncios')
         return redirect(url_for('home'))
         
     return render_template('home.html')
@@ -108,4 +118,4 @@ def anuncio():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=443)
+   app.run( debug=False, host='0.0.0.0', port=5000)
