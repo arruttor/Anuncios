@@ -47,18 +47,21 @@
         }
 
         .conteudo {
+            aspect-ratio: 16 / 9;
             border-radius: 10px;
             position: absolute;
-            top: 166px;
-            left: 24px;
-            width: 1002px;
-            height: 600px;
+            top: 19.2%;
+            left: 1.4%;
+            width: 65.5%;
+            height: 69.5%;
             background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .interno{
+            background-color: blue;
             height: 100%;
         }
 
@@ -82,7 +85,14 @@
     <div class="moldura">
         <div class="conteudo">
             <div class="interno">
-                <div class="carousel-inner">
+                <div class="carousel-item active">
+                        <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
+                            <source src="../static/anuncios/API_com_o_Banco_de_Dados_mais_popular_do_planeta_em_apenas_15_minutos_-_Cod3r_Cursos_(1080p,_h264,_youtube).mp4" type="video/mp4">
+                        </video>
+                    </div>
+            </div>
+
+            <!--    <div class="carousel-inner">
                     {% with anuncios = anuncios%}
                     {% if anuncios %}
                     {% for cada in anuncios %}
@@ -97,16 +107,26 @@
                         <img class="d-block " src="{{cada}}" alt="Second slide">
                     </div>
                     {%endif%}
-
+.conteudo {
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            position: absolute;
+            top: 16.8%;
+            left: 1.4%;
+            width: 65.5%;
+            height: 74.8%;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
                     {% endfor %}
                     {% endif %}
                     {%endwith%}
 
                 </div>
-            </div>
-
-
+            </div>-->
         </div>
     </div>
 
