@@ -42,24 +42,24 @@
             /* Largura total da tela */
             height: 100vh;
             /* Altura total da tela */
-            background: url('../static/img/fundo.png') no-repeat center center;
+            background: url('../static/img/ANUNCIOS.png') no-repeat center center;
             background-size: cover;
         }
 
         .conteudo {
+            border-radius: 10px;
             position: absolute;
-            top: 3%;
-            /* Ajuste para alinhar a área cinza */
-            left: 15.5%;
-            /* Ajuste para alinhar a área cinza */
-            width: 83.8%;
-            /* Ajuste conforme necessário */
-            height: 92%;
-            /* Ajuste conforme necessário */
+            top: 166px;
+            left: 24px;
+            width: 1002px;
+            height: 600px;
             background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .interno{
+            height: 100%;
         }
 
         .conteudo img,
@@ -81,7 +81,7 @@
 
     <div class="moldura">
         <div class="conteudo">
-            <div id="carouselExampleSlidesOnly" class="carousel slide">
+            <div class="interno">
                 <div class="carousel-inner">
                     {% with anuncios = anuncios%}
                     {% if anuncios %}
@@ -105,6 +105,8 @@
 
                 </div>
             </div>
+
+
         </div>
     </div>
 
