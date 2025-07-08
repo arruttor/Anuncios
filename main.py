@@ -114,7 +114,7 @@ def anuncio():
         return render_template('fronty.html', anuncios=anuncios)
     else:
         print('Nenhum anúncio encontrado.')
-        return render_template('fronty.html', anuncios=None)
+        return render_template('teste.html', anuncios=None)
 
 
 if __name__ == '__main__':
