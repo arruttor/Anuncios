@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -23,119 +23,132 @@
             location.reload();  // Recarrega a página ao receber o evento
         });
     </script>
-    <title>Anuncios</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
-        html,
-        body {
+        body,
+        html {
             height: 100%;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: linear-gradient(to bottom,
-                    #e50727 -50%,
-                    #7e1572 50%,
-                    #e50727 150%);
-            background-repeat: no-repeat;
-            /* Impede repetição */
-            background-size: cover;
-            /* Faz o gradiente cobrir toda a área */
             display: flex;
             flex-direction: column;
+            background: linear-gradient(to bottom, #e50727 -50%, #7e1572 50%, #e50727 150%);
         }
 
-        main {
-            flex: 1;
-        }
-
-        .moldura {
-            height: 100vhs;
-        }
-
-        .cabecalho {
-            top: 0;
-            left: 0;
-            width: 100%;
+        .box {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-
+            justify-content: center;
+            color: #fff;
+            font-size: 2vw;
+            padding: 0;
         }
 
-        .cabecalho #logo {
-            margin-left: 20px;
+        .header {
+            flex: 0 0 10%;
+            justify-content: space-between;
+            /* 20% da altura */
         }
 
-        .conteudo {
-            width: 100vw;
-            background-color: white;
-            height: 75vh;
-            margin-top: -4px;
-            display: flex;
+        .header .logo img {
+            width: 10vw;
+            height: auto;
+            margin-left: 20%;
+        }
+
+        .header .graf {
+            height: 100%;
+        }
+
+        .header .graf img {
+            width: 30vw;
+            height: 100%;
+        }
+
+        .content {
+            align-items: stretch;
             justify-content: space-around;
-            align-items: center;
+            background-color: aliceblue;
+            flex: 1;
+            padding: 10px;
+            /* ocupa o espaço restante */
         }
 
-        .conteudo #anuncio {
-            width: 70%;
-            height: 97%;
-            display: flex;
+        .content .anuncio {
+            flex: 0 0 69%;
             background-color: black;
+
         }
 
-        .conteudo #mensagem {
-            width: 28%;
-            height: 97%;
-            background-color: blue;
-        }
-
-        .rodape {
+        .carousel-inner img {
             width: 100%;
-            display: flex;
+            height: 100%;
+            object-fit: fill
+        }
+
+        .carousel-inner video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .carousel, .carousel-inner, .carousel-item{
+            height: 100%;
+        }
+
+        .content .mensagem {
+            flex: 0 0 30%;
+            background-color: #f0f0f0;
+        }
+
+        .footer {
+            flex: 0 0 10%;
             justify-content: space-between;
-            align-items: center;
+            /* 10% da altura */
         }
 
-        .rodape .local {
-            margin-left: 20px;
+        .footer h1 {
+            font-size: 1.5vw;
+            color: black;
+            text-align: center;
         }
 
-        .rodape h1 {
+        .footer .grafismo img {
+            rotate: 180deg;
+        }
+
+        .footer .hora {
+            margin-left: 10%;
             color: white;
-            font-size: 1.5em;
-            margin: 0;
         }
 
-        .rodape .grafismo {
-            margin-right: 0px;
-
+        p,
+        h1 {
+            text-align: center;
+            max-width: 90%;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="cabecalho">
-            <div id="logo">
-                <img src="../static/img/logo-una.png" width="220px" alt="">
-            </div>
-            <div id="graf1">
-                <img src="../static/img/grafismo1.png" width="550px">
-            </div>
+    <header class="box header">
+        <div class="logo">
+            <img src="../static/img/logo-una.png" alt="">
+        </div>
+        <div class="graf">
+            <img src="../static/img/grafismo1.png" alt="">
         </div>
     </header>
-    <main>
-        <div class="conteudo">
-            <div id="anuncio">
-                
+
+    <main class="box content">
+        <div class="anuncio">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     {% with anuncios = anuncios%}
                     {% if anuncios %}
@@ -159,24 +172,24 @@
 
                 </div>
             </div>
-            <div id="mensagem">
+        </div>
+        <div class="mensagem">
 
-            </div>
         </div>
     </main>
-    <footer>
-        <div class="rodape">
-            <div class="local">
-                <h1 id="localAtual">FACULDADE UNA DIVINÓPOLIS</h1>
-            </div>
-            <div class="hora">
-                <h1 id="horaAtual"></h1>
-            </div>
-            <div class="grafismo">
-                <img src="../static/img/grafismo2.png" width="400px" alt="">
-            </div>
+
+    <footer class="box footer">
+        <div class="local">
+            <h1 id="localAtual">FACULDADE UNA DIVINÓPOLIS</h1>
+        </div>
+        <div class="hora">
+            <h1 id="horaAtual"></h1>
+        </div>
+        <div class="grafismo">
+            <img src="../static/img/grafismo2.png" alt="">
         </div>
     </footer>
+
 
     <script>
 
@@ -196,7 +209,7 @@
             let segundos = agora.getSeconds().toString().padStart(2, '0');
             const horaAtual = `${hora}:${minutos}:${segundos}`;
             console.log(weekDay + '-' + horaAtual);
-            document.getElementById('horaAtual').textContent = weekDay + ' - ' + horaAtual;
+            document.getElementById('horaAtual').textContent = weekDay + '  ' + horaAtual;
         }
         attRelogio();
         setInterval(attRelogio, 1000); // Atualiza a cada segundo
@@ -243,7 +256,6 @@
             setSlideInterval();
         });
     </script>
-
 </body>
 
 </html>

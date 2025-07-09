@@ -3,6 +3,7 @@ from flask import Blueprint, flash, render_template, request, redirect, url_for,
 from ..services.extensions import socketio
 
 from ..models.Anuncio import Anuncio
+from ..models.Mensagem import Mensagem
 
 home_bp = Blueprint('home', __name__)
 
@@ -23,12 +24,15 @@ def home():
         #     return redirect(url_for('home'))
     
         Anuncio.deletar_todos()
+        Mensagem.deletar_todos()
         anuncio = []
         for arquivo in arquivos:
             nome_arquivo = arquivo.filename.replace(' ', '_')
             caminho_arquivo = os.path.join(current_app.config['UPLOAD_FOLDER'], nome_arquivo)
             arquivo.save(caminho_arquivo)
             anuncio.append(Anuncio.criar_anuncio(nome_arquivo, altura, largura)) 
+
+        mensagem = Mensagem.criar_mensagem(mensagem)    
 
         
         flash("Arquivo enviado com sucesso!", "success")

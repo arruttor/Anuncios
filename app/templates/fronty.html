@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,
+500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -23,174 +27,215 @@
             location.reload();  // Recarrega a página ao receber o evento
         });
     </script>
-    <title>Anuncios</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
-        html,body {
-            width: 100%;
+
+        body,
+        html {
             height: 100%;
         }
+
         body {
-            background: linear-gradient(to bottom,
-                    #e50727 -50%,
-                    #7e1572 50%,
-                    #e50727 150%);
-            background-repeat: no-repeat;
-            /* Impede repetição */
-            background-size: cover;
-            /* Faz o gradiente cobrir toda a área */
-        }
-
-        .moldura {
-            height: 100vhs;
-        }
-
-        .cabecalho {
-            top: 0;
-            left: 0;
-            width: 100%;
             display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #e50727 -50%, #7e1572 50%, #e50727 150%);
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2vh;
+            padding: 0;
+        }
+
+        .header {
+            flex: 0 0 10%;
             justify-content: space-between;
-            align-items: center;
-
+            /* 20% da altura */
         }
 
-        .cabecalho #logo {
-            margin-left: 20px;
+        .header .logo img {
+            width: 10vw;
+            height: auto;
+            margin-left: 20%;
         }
 
-        .conteudo {
-            width: 100vw;
-            background-color: white;
-            height: 79vh;
-            margin-top: -4px;
-            display: flex;
+        .header .graf {
+            height: 100%;
+        }
+
+        .header .graf img {
+            width: 30vw;
+            height: 100%;
+        }
+
+        .content {
+            align-items: stretch;
             justify-content: space-around;
-            align-items: center;
+            background-color: aliceblue;
+            flex: 1;
+            padding: 10px;
+            /* ocupa o espaço restante */
         }
 
-        .conteudo #anuncio {
-            width: 70%;
-            height: 97%;
-            display: flex;
+        .content .anuncio {
+            flex: 0 0 69%;
             background-color: black;
             border-radius: 20px;
-        }
-
-        .conteudo #mensagem {
-            width: 28%;
-            height: 97%;
-            background-color: blue;
-        }
-
-        .rodape {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .rodape .local {
-            margin-left: 20px;
-        }
-
-        .rodape h1 {
-            color: white;
-            font-size: 1.5em;
-            margin: 0;
-        }
-
-        .rodape .grafismo {
-            margin-right: 0px;
 
         }
 
-        .carousel-inner {
+        .carousel-inner img {
             width: 100%;
             height: 100%;
+            object-fit: fill
         }
 
+        .carousel-inner video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .carousel,
+        .carousel-inner,
         .carousel-item {
-            width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
         }
 
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .content .mensagem {
+            flex: 0 0 30%;
+            border: 4px solid #f2913d;
+            padding: 15px;
             border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 3%;
+            color: rgb(73, 73, 73);
+        }
+        .content .mensagem #titulo{
+            border-radius: 15px;
+            background: linear-gradient(to top, #e50727 -50%, #7e1572 100%);
+            background-color: #333333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f2913d;
+            margin-bottom: 10%;
+            width: 100%;
+            height: 16%;
+        }
+        #titulo h1 {
+            font-size: 2vw;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .footer {
+            flex: 0 0 10%;
+            justify-content: space-between;
+            /* 10% da altura */
+        }
+
+        .footer h1 {
+            margin-top: 5px;
+            font-size: 1.8vw;
+            color: black;
+            text-align: center;
+        }
+
+        .footer .grafismo img {
+            rotate: 180deg;
+        }
+
+        .footer .hora {
+            margin-left: 8%;
+            color: white;
+        }
+
+        p,
+        h1 {
+            text-align: center;
+            max-width: 90%;
+        }
+        h1{
+            font-size: 5vh;
         }
     </style>
 </head>
 
 <body>
-    <div class="moldura">
-        <header>
-            <div class="cabecalho">
-                <div id="logo">
-                    <img src="../static/img/logo-una.png" width="220px" alt="">
-                </div>
-                <div id="graf1">
-                    <img src="../static/img/grafismo1.png" width="400px">
-                </div>
-            </div>
-        </header>
-        <main>
-            <div class="conteudo">
-                <div id="anuncio">
-                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            {% with anuncios = anuncios%}
-                            {% if anuncios %}
-                            {% for cada in anuncios %}
-                            {%if ".mp4" in cada%}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
-                                    <source src="{{cada}}" type="video/mp4">
-                                </video>
-                            </div>
-                            {%else%}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img class="d-block " src="{{cada}}" alt="Second slide">
-                            </div>
-                            {%endif%}
+    <header class="box header">
+        <div class="logo">
+            <img src="../static/img/logo-una.png" alt="">
+        </div>
+        <div class="graf">
+            <img src="../static/img/grafismo1.png" alt="">
+        </div>
+    </header>
 
-
-                            {% endfor %}
-                            {% endif %}
-                            {%endwith%}
-
-                        </div>
+    <main class="box content">
+        <div class="anuncio">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% with anuncios = anuncios%}
+                    {% if anuncios %}
+                    {% for cada in anuncios %}
+                    {%if ".mp4" in cada%}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
+                            <source src="{{cada}}" type="video/mp4">
+                        </video>
                     </div>
-                </div>
-                <div id="mensagem">
+                    {%else%}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img class="d-block " src="{{cada}}" alt="Second slide">
+                    </div>
+                    {%endif%}
+
+
+                    {% endfor %}
+                    {% endif %}
+                    {%endwith%}
 
                 </div>
             </div>
-        </main>
-        <footer>
-            <div class="rodape">
-                <div class="local">
-                    <h1 id="localAtual">FACULDADE UNA DIVINÓPOLIS</h1>
-                </div>
-                <div class="hora">
-                    <h1 id="horaAtual"></h1>
-                </div>
-                <div class="grafismo">
-                    <img src="../static/img/grafismo2.png" width="400px" alt="">
-                </div>
+        </div>
+        <div class="mensagem">
+            <div id="titulo">
+                <h1>Mensagem do dia</h1>
             </div>
-        </footer>
-    </div>
+            {% if mensagem %}
+            <h1>{{ mensagem }}</h1>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer class="box footer">
+        <div class="local">
+            <h1 id="localAtual">FACULDADE UNA DIVINÓPOLIS</h1>
+        </div>
+        <div class="hora">
+            <h1 id="horaAtual"></h1>
+        </div>
+        <div class="grafismo">
+            <img src="../static/img/grafismo2.png" alt="">
+        </div>
+    </footer>
+
+
     <script>
 
         function attRelogio() {
@@ -209,7 +254,7 @@
             let segundos = agora.getSeconds().toString().padStart(2, '0');
             const horaAtual = `${hora}:${minutos}:${segundos}`;
             console.log(weekDay + '-' + horaAtual);
-            document.getElementById('horaAtual').textContent = weekDay + ' - ' + horaAtual;
+            document.getElementById('horaAtual').textContent = weekDay + '  ' + horaAtual;
         }
         attRelogio();
         setInterval(attRelogio, 1000); // Atualiza a cada segundo
@@ -256,7 +301,6 @@
             setSlideInterval();
         });
     </script>
-
 </body>
 
 </html>
