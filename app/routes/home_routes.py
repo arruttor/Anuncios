@@ -17,6 +17,7 @@ def home():
         arquivos = request.files.getlist('file')
         largura = request.form['largura']
         altura = request.form['altura']
+        mensagem = request.form['mensagem']
         # if arquivo.filename == '':
         #     flash("Nenhum arquivo selecionado!", "error")
         #     return redirect(url_for('home'))
