@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -24,116 +24,204 @@
         });
     </script>
     <title>Anuncios</title>
-
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
-            background-color: black;
+            background: linear-gradient(to bottom,
+                    #e50727 -50%,
+                    #7e1572 50%,
+                    #e50727 150%);
+            background-repeat: no-repeat;
+            /* Impede repetição */
+            background-size: cover;
+            /* Faz o gradiente cobrir toda a área */
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
         }
 
         .moldura {
-            position: relative;
-            width: 100vw;
-            /* Largura total da tela */
-            height: 100vh;
-            /* Altura total da tela */
-            background: url('../static/img/ANUNCIOS.png') no-repeat center center;
-            background-size: cover;
+            height: 100vhs;
+        }
+
+        .cabecalho {
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        .cabecalho #logo {
+            margin-left: 20px;
         }
 
         .conteudo {
-            aspect-ratio: 16 / 9;
-            border-radius: 10px;
-            position: absolute;
-            top: 19.2%;
-            left: 1.4%;
-            width: 65.5%;
-            height: 69.5%;
-            background-color: transparent;
+            width: 100vw;
+            background-color: white;
+            height: 75vh;
+            margin-top: -4px;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
         }
 
-        .interno{
-            background-color: blue;
-            height: 100%;
+        .conteudo #anuncio {
+            width: 70%;
+            height: 97%;
+            display: flex;
+            background-color: black;
+            border-radius: 20px;
         }
 
-        .conteudo img,
-        .conteudo video,
-        #carouselExampleSlidesOnly,
-        .carousel-inner,
+        .conteudo #mensagem {
+            width: 28%;
+            height: 97%;
+            background-color: blue;
+        }
+
+        .rodape {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rodape .local {
+            margin-left: 20px;
+        }
+
+        .rodape h1 {
+            color: white;
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .rodape .grafismo {
+            margin-right: 0px;
+
+        }
+        .carousel-inner {
+            width: 100%;
+            height: 100%;
+        }
         .carousel-item {
             width: 100%;
             height: 100%;
-            object-fit: fill;
-            /* Faz a imagem se esticar para preencher a área, podendo distorcer */
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
         }
     </style>
 </head>
 
 <body>
-
-
-
-    <div class="moldura">
-        <div class="conteudo">
-            <div class="interno">
-                <div class="carousel-item active">
-                        <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
-                            <source src="../static/anuncios/API_com_o_Banco_de_Dados_mais_popular_do_planeta_em_apenas_15_minutos_-_Cod3r_Cursos_(1080p,_h264,_youtube).mp4" type="video/mp4">
-                        </video>
-                    </div>
+    <header>
+        <div class="cabecalho">
+            <div id="logo">
+                <img src="../static/img/logo-una.png" width="220px" alt="">
             </div>
-
-            <!--    <div class="carousel-inner">
-                    {% with anuncios = anuncios%}
-                    {% if anuncios %}
-                    {% for cada in anuncios %}
-                    {%if ".mp4" in cada%}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
-                            <source src="{{cada}}" type="video/mp4">
-                        </video>
-                    </div>
-                    {%else%}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <img class="d-block " src="{{cada}}" alt="Second slide">
-                    </div>
-                    {%endif%}
-.conteudo {
-            aspect-ratio: 16 / 9;
-            border-radius: 10px;
-            position: absolute;
-            top: 16.8%;
-            left: 1.4%;
-            width: 65.5%;
-            height: 74.8%;
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-                    {% endfor %}
-                    {% endif %}
-                    {%endwith%}
-
-                </div>
-            </div>-->
+            <div id="graf1">
+                <img src="../static/img/grafismo1.png" width="550px">
+            </div>
         </div>
-    </div>
+    </header>
+    <main>
+        <div class="conteudo">
+            <div id="anuncio">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% with anuncios = anuncios%}
+                        {% if anuncios %}
+                        {% for cada in anuncios %}
+                        {%if ".mp4" in cada%}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
+                                <source src="{{cada}}" type="video/mp4">
+                            </video>
+                        </div>
+                        {%else%}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <img class="d-block " src="{{cada}}" alt="Second slide">
+                        </div>
+                        {%endif%}
+
+
+                        {% endfor %}
+                        {% endif %}
+                        {%endwith%}
+
+                    </div>
+                </div>
+            </div>
+            <div id="mensagem">
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="rodape">
+            <div class="local">
+                <h1 id="localAtual">FACULDADE UNA DIVINÓPOLIS</h1>
+            </div>
+            <div class="hora">
+                <h1 id="horaAtual"></h1>
+            </div>
+            <div class="grafismo">
+                <img src="../static/img/grafismo2.png" width="400px" alt="">
+            </div>
+        </div>
+    </footer>
 
     <script>
+
+        function attRelogio() {
+            let agora = new Date();
+            let week = new Array(7)
+            week[0] = "Domingo";
+            week[1] = "Segunda-feira";
+            week[2] = "Terça-feira";
+            week[3] = "Quarta-feira";
+            week[4] = "Quinta-feira";
+            week[5] = "Sexta-feira";
+            week[6] = "Sábado";
+            let weekDay = week[agora.getDay()];
+            let hora = agora.getHours().toString().padStart(2, '0');
+            let minutos = agora.getMinutes().toString().padStart(2, '0');
+            let segundos = agora.getSeconds().toString().padStart(2, '0');
+            const horaAtual = `${hora}:${minutos}:${segundos}`;
+            console.log(weekDay + '-' + horaAtual);
+            document.getElementById('horaAtual').textContent = weekDay + ' - ' + horaAtual;
+        }
+        attRelogio();
+        setInterval(attRelogio, 1000); // Atualiza a cada segundo
         document.addEventListener('DOMContentLoaded', function () {
             const carousel = $('#carouselExampleSlidesOnly');
-    
+
             function stopAllVideos() {
                 const videos = document.querySelectorAll('video');
                 videos.forEach(video => {
@@ -141,15 +229,15 @@
                     video.currentTime = 0;
                 });
             }
-    
+
             function setSlideInterval() {
                 const activeSlide = document.querySelector('.carousel-item.active');
                 const video = activeSlide.querySelector('video');
-    
+
                 if (video) {
                     carousel.carousel('pause');
                     video.play().catch(err => console.error(err));
-    
+
                     video.onended = function () {
                         carousel.carousel('next');
                     };
@@ -160,15 +248,15 @@
                     }, 10000);
                 }
             }
-    
+
             carousel.on('slide.bs.carousel', function () {
                 stopAllVideos();
             });
-    
+
             carousel.on('slid.bs.carousel', function () {
                 setSlideInterval();
             });
-    
+
             // Inicia o carrossel manualmente e executa o controle
             carousel.carousel({ interval: false, pause: true });
             setSlideInterval();
