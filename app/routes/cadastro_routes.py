@@ -9,6 +9,8 @@ cad_bp = Blueprint('cad', __name__)
 def cadastro():
     data = Anuncio.get_all()
     if data:
-        return render_template('teste.html', anuncios=data)
+        return render_template('index.html', anuncios=data)
+    else: 
+        return render_template('index.html', anuncios=None)
 
     
