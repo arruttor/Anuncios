@@ -1,261 +1,146 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script>
-        const socket = io.connect('http://' + document.domain + ':' + location.port);
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
 
-        socket.on('atualizar_anuncios', () => {
-            location.reload();  // Recarrega a página ao receber o evento
-        });
-    </script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
-        body,
-        html {
-            height: 100%;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(to bottom, #e50727 -50%, #7e1572 50%, #e50727 150%);
-        }
-
-        .box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 2vw;
-            padding: 0;
-        }
-
-        .header {
-            flex: 0 0 10%;
-            justify-content: space-between;
-            /* 20% da altura */
-        }
-
-        .header .logo img {
-            width: 10vw;
-            height: auto;
-            margin-left: 20%;
-        }
-
-        .header .graf {
-            height: 100%;
-        }
-
-        .header .graf img {
-            width: 30vw;
-            height: 100%;
-        }
-
-        .content {
-            align-items: stretch;
-            justify-content: space-around;
-            background-color: aliceblue;
-            flex: 1;
-            padding: 10px;
-            /* ocupa o espaço restante */
-        }
-
-        .content .anuncio {
-            flex: 0 0 69%;
-            background-color: black;
-
-        }
-
-        .carousel-inner img {
-            width: 100%;
-            height: 100%;
-            object-fit: fill
-        }
-
-        .carousel-inner video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-        .carousel, .carousel-inner, .carousel-item{
-            height: 100%;
-        }
-
-        .content .mensagem {
-            flex: 0 0 30%;
-            background-color: #f0f0f0;
-        }
-
-        .footer {
-            flex: 0 0 10%;
-            justify-content: space-between;
-            /* 10% da altura */
-        }
-
-        .footer h1 {
-            font-size: 1.5vw;
-            color: black;
-            text-align: center;
-        }
-
-        .footer .grafismo img {
-            rotate: 180deg;
-        }
-
-        .footer .hora {
-            margin-left: 10%;
-            color: white;
-        }
-
-        p,
-        h1 {
-            text-align: center;
-            max-width: 90%;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 </head>
 
 <body>
-    <header class="box header">
-        <div class="logo">
-            <img src="../static/img/logo-una.png" alt="">
-        </div>
-        <div class="graf">
-            <img src="../static/img/grafismo1.png" alt="">
-        </div>
-    </header>
-
-    <main class="box content">
-        <div class="anuncio">
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    {% with anuncios = anuncios%}
-                    {% if anuncios %}
-                    {% for cada in anuncios %}
-                    {%if ".mp4" in cada%}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
-                            <source src="{{cada}}" type="video/mp4">
-                        </video>
-                    </div>
-                    {%else%}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <img class="d-block " src="{{cada}}" alt="Second slide">
-                    </div>
-                    {%endif%}
-
-
-                    {% endfor %}
-                    {% endif %}
-                    {%endwith%}
-
-                </div>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#fcf8f8] group/design-root overflow-x-hidden"
+        style='font-family: Inter, "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full grow flex-col">
+            <!--<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3e7e8] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#1b0e0e]">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_6_543)">
+                  <path
+                    d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z"
+                    fill="currentColor"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z"
+                    fill="currentColor"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_543"><rect width="48" height="48" fill="white"></rect></clipPath>
+                </defs>
+              </svg>
             </div>
+            <h2 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em]">File Manager</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+              <a class="text-[#1b0e0e] text-sm font-medium leading-normal" href="#">Home</a>
+              <a class="text-[#1b0e0e] text-sm font-medium leading-normal" href="#">Files</a>
+              <a class="text-[#1b0e0e] text-sm font-medium leading-normal" href="#">Messages</a>
+            </div>
+            <button
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#f3e7e8] text-[#1b0e0e] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
+            >
+              <div class="text-[#1b0e0e]" data-icon="Bell" data-size="20px" data-weight="regular">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                  <path
+                    d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDgGIGDfkh7mtPXTRZGUTR26TRj5dUWujSG7KLBFPEWF0UlMxHZJN4hBqDAEx-VUWOql7KcocVkDVW_nC9LWEnJD8ctE7iNAvycG97iJfZgM7gB3ksjacNQu2zRlkUvZEQpFG83TbkeqFrGIIgyXGP9VliQirO-h1SgTMVZwFp4vvi9Tc8kuOm8VXTyGCtRxc1RsW0SyJapszQZBEg7avOREpO6MHDC9GrKFpbvbQF6Uzm-ciFq7s0KEx9h-f06hYlUAb7lSk8AQOc");'
+            ></div>
+          </div>
+        </header>-->
+            <main>
+                <div class="px-40 flex flex-1 justify-center py-5">
+                    <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                        <div class="flex flex-wrap justify-between gap-3 p-4">
+                            <p class="text-[#1b0e0e] tracking-light text-[32px] font-bold leading-tight min-w-72">Files
+                                and Messages</p>
+                        </div>
+                        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                            Uploaded Files</h3>
+                        <div class="flex px-4 py-3 justify-end">
+                            <button
+                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
+                                <span class="truncate">Remove</span>
+                            </button>
+                        </div>
+                        <div class="px-4 py-3 @container">
+                            <div class="flex overflow-hidden rounded-xl border border-[#e7d0d1] bg-[#fcf8f8]">
+                                <table class="flex-1">
+                                    <thead>
+                                        <tr class="bg-[#fcf8f8]">
+                                            <th
+                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 px-4 py-3 text-left text-[#1b0e0e] text-sm font-medium leading-normal">
+                                            </th>
+                                            <th
+                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                                                File Name
+                                            </th>
+                                            <th
+                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                                                Size</th>
+                                            <th
+                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                                                Date Uploaded
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                            New Upload</h3>
+                        <div class="flex flex-col p-4">
+                            <div
+                                class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#e7d0d1] px-6 py-14">
+                                <div class="flex max-w-[480px] flex-col items-center gap-2">
+                                    <p
+                                        class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
+                                        Drag and drop files here</p>
+                                    <p
+                                        class="text-[#1b0e0e] text-sm font-normal leading-normal max-w-[480px] text-center">
+                                        Or click to browse</p>
+                                </div>
+                                <button
+                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#f3e7e8] text-[#1b0e0e] text-sm font-bold leading-normal tracking-[0.015em]">
+                                    <span class="truncate">Upload Files</span>
+                                </button>
+                            </div>
+                        </div>
+                        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                            Messages</h3>
+                        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <textarea placeholder="Type your message here..."
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b0e0e] focus:outline-0 focus:ring-0 border border-[#e7d0d1] bg-[#fcf8f8] focus:border-[#e7d0d1] min-h-36 placeholder:text-[#994d51] p-[15px] text-base font-normal leading-normal"></textarea>
+                            </label>
+                        </div>
+                        <div class="flex px-4 py-3 justify-end">
+                            <button
+                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
+                                <span class="truncate">Send</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-        <div class="mensagem">
-
-        </div>
-    </main>
-
-    <footer class="box footer">
-        <div class="local">
-            <h1 id="localAtual">FACULDADE UNA DIVINÓPOLIS</h1>
-        </div>
-        <div class="hora">
-            <h1 id="horaAtual"></h1>
-        </div>
-        <div class="grafismo">
-            <img src="../static/img/grafismo2.png" alt="">
-        </div>
-    </footer>
-
-
-    <script>
-
-        function attRelogio() {
-            let agora = new Date();
-            let week = new Array(7)
-            week[0] = "Domingo";
-            week[1] = "Segunda-feira";
-            week[2] = "Terça-feira";
-            week[3] = "Quarta-feira";
-            week[4] = "Quinta-feira";
-            week[5] = "Sexta-feira";
-            week[6] = "Sábado";
-            let weekDay = week[agora.getDay()];
-            let hora = agora.getHours().toString().padStart(2, '0');
-            let minutos = agora.getMinutes().toString().padStart(2, '0');
-            let segundos = agora.getSeconds().toString().padStart(2, '0');
-            const horaAtual = `${hora}:${minutos}:${segundos}`;
-            console.log(weekDay + '-' + horaAtual);
-            document.getElementById('horaAtual').textContent = weekDay + '  ' + horaAtual;
-        }
-        attRelogio();
-        setInterval(attRelogio, 1000); // Atualiza a cada segundo
-        document.addEventListener('DOMContentLoaded', function () {
-            const carousel = $('#carouselExampleSlidesOnly');
-
-            function stopAllVideos() {
-                const videos = document.querySelectorAll('video');
-                videos.forEach(video => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            }
-
-            function setSlideInterval() {
-                const activeSlide = document.querySelector('.carousel-item.active');
-                const video = activeSlide.querySelector('video');
-
-                if (video) {
-                    carousel.carousel('pause');
-                    video.play().catch(err => console.error(err));
-
-                    video.onended = function () {
-                        carousel.carousel('next');
-                    };
-                } else {
-                    // Avança após 5 segundos
-                    setTimeout(() => {
-                        carousel.carousel('next');
-                    }, 10000);
-                }
-            }
-
-            carousel.on('slide.bs.carousel', function () {
-                stopAllVideos();
-            });
-
-            carousel.on('slid.bs.carousel', function () {
-                setSlideInterval();
-            });
-
-            // Inicia o carrossel manualmente e executa o controle
-            carousel.carousel({ interval: false, pause: true });
-            setSlideInterval();
-        });
-    </script>
+    </div>
 </body>
 
 </html>

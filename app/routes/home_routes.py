@@ -30,7 +30,7 @@ def home():
             nome_arquivo = arquivo.filename.replace(' ', '_')
             caminho_arquivo = os.path.join(current_app.config['UPLOAD_FOLDER'], nome_arquivo)
             arquivo.save(caminho_arquivo)
-            anuncio.append(Anuncio.criar_anuncio(nome_arquivo, altura, largura)) 
+            anuncio.append(Anuncio.criar_anuncio(nome_arquivo, altura, largura,tamanho=os.path.getsize(caminho_arquivo))) 
 
         mensagem = Mensagem.criar_mensagem(mensagem)    
 
