@@ -30,7 +30,7 @@ def home():
             nome_arquivo = arquivo.filename.replace(' ', '_')
             caminho_arquivo = os.path.join(current_app.config['UPLOAD_FOLDER'], nome_arquivo)
             arquivo.save(caminho_arquivo)
-            anuncio.append(Anuncio.criar_anuncio(nome_arquivo, altura, largura,tamanho=os.path.getsize(caminho_arquivo))) 
+            anuncio.append(Anuncio.criar_anuncio(nome_arquivo, altura, largura,tamanho=os.path.getsize(caminho_arquivo), nome=nome_arquivo)) 
 
         mensagem = Mensagem.criar_mensagem(mensagem)    
 
@@ -40,3 +40,18 @@ def home():
         return redirect(url_for('home.home'))
         
     return render_template('home.html')
+
+@home_bp.route('/cadastro/delete', methods=['POST'])
+def delete():
+    ids = request.form.getlist('selecionados')
+    if not ids:
+        flash("Nenhum arquivo selecionado para deletar.", "error")
+        return redirect(url_for('home.home'))
+    for id in ids:
+        anuncio = Anuncio.query.get(id)
+        if anuncio:
+          #  os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], anuncio.caminho))
+            Anuncio.query.filter_by(id=id).delete()
+    flash("Arquivos deletados com sucesso!", "success")
+    socketio.emit('atualizar_anuncios')
+    return redirect(url_for('home.home'))

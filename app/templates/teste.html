@@ -71,36 +71,58 @@
                         <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
                             Uploaded Files</h3>
                         <div class="flex px-4 py-3 justify-end">
-                            <button
+                            <button id="deletar"
                                 class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
                                 <span class="truncate">Remove</span>
                             </button>
                         </div>
                         <div class="px-4 py-3 @container">
                             <div class="flex overflow-hidden rounded-xl border border-[#e7d0d1] bg-[#fcf8f8]">
-                                <table class="flex-1">
-                                    <thead>
-                                        <tr class="bg-[#fcf8f8]">
-                                            <th
-                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 px-4 py-3 text-left text-[#1b0e0e] text-sm font-medium leading-normal">
-                                            </th>
-                                            <th
-                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
-                                                File Name
-                                            </th>
-                                            <th
-                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
-                                                Size</th>
-                                            <th
-                                                class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
-                                                Date Uploaded
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
+                                <form action="/cadastro/delete" method="post" enctype="multipart/form-data" id="form-delete">
+                                    <table class="flex-1">
+                                        <thead>
+                                            <tr class="bg-[#fcf8f8]">
+                                                <th
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 px-4 py-3 text-left text-[#1b0e0e] text-sm font-medium leading-normal">
+                                                </th>
+                                                <th
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                                                    File Name
+                                                </th>
+                                                <th
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                                                    Size</th>
+                                                <th
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                                                    Date Uploaded
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% with anuncios = anuncios%} {% if anuncios %} {% for cada in anuncios %}
+                                            <tr class="border-t border-t-[#e7d0d1]">
+                                                <td
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 h-[72px] px-4 py-2 text-sm font-normal leading-normal">
+                                                    <input type="checkbox" name="selecionados" id="{{cada.id}}" value="{{cada.id}}"
+                                                        class="h-4 w-4 rounded border-[#e7d0d1] text-[#ea2832] focus:ring-0">
+                                                </td>
+                                                <td
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 h-[72px] px-4 py-2 w-[400px] text-[#1b0e0e] text-sm font-normal leading-normal">
+                                                    {{ cada.nome }}
+                                                </td>
+                                                <td
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 h-[72px] px-4 py-2 w-[400px] text-[#994d51] text-sm font-normal leading-normal">
+                                                    {{ cada.tamanho }} MB
+                                                </td>
+                                                <td
+                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 h-[72px] px-4 py-2 w-[400px] text-[#994d51] text-sm font-normal leading-normal">
+                                                    {{ cada.data_criacao }}
+                                                </td>
+                                            </tr>
+                                            {% endfor %} {%endif%} {%endwith%}
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                         <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
@@ -141,6 +163,18 @@
             </main>
         </div>
     </div>
+    <script>
+        document.getElementById('deletar').addEventListener('click', function () {
+            const checkboxes = document.querySelectorAll('input[name="selecionados"]:checked');
+            if (checkboxes.length === 0) {
+                alert('selecione ao menos um arquivo para deletar');
+                return;
+            }
+            if (confirm('deseja deletar esses arquivos?')) {
+                document.getElementById('form-delete').submit();
+            }
+        });
+    </script>
 </body>
 
 </html>
