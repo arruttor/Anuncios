@@ -3,6 +3,7 @@ from sqlalchemy import inspect
 from ..db import db
 from ..models.Anuncio import Anuncio
 from ..models.Mensagem import Mensagem
+from ..models.Config import Config
 
 def verifica_tabela_criada():
     with current_app.app_context():

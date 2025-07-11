@@ -4,6 +4,7 @@ from ..services.extensions import socketio
 
 from ..models.Anuncio import Anuncio
 from ..models.Mensagem import Mensagem
+from ..models.Config import Config
 
 home_bp = Blueprint('home', __name__)
 
@@ -19,6 +20,7 @@ def home():
         # largura = request.form['largura']
         # altura = request.form['altura']
         mensagem = request.form['mensagem']
+        local = request.form['local']
         # if arquivo.filename == '':
         #     flash("Nenhum arquivo selecionado!", "error")
         #     return redirect(url_for('home'))
@@ -30,8 +32,13 @@ def home():
             arquivo.save(caminho_arquivo)
             anuncio.append(Anuncio.criar_anuncio(nome_arquivo,tamanho=os.path.getsize(caminho_arquivo), nome=nome_arquivo)) 
 
-        mensagem = Mensagem.criar_mensagem(mensagem)    
-
+        mensagem = Mensagem.criar_mensagem(mensagem)
+        local_atual = Config.get_configuracao()
+        if local_atual:
+            if local_atual != local:
+                Config.atualizar_configuracao(local)
+        else:
+            Config.criar_configuracao(local)
         
         flash("Arquivo enviado com sucesso!", "success")
         socketio.emit('atualizar_anuncios')

@@ -1,31 +1,31 @@
 <html>
 
 <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
-        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
 
-    <link rel="stylesheet" href="../static/css/index.css">
-    <title>Cadastro de arquivos</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <link rel="stylesheet" href="../static/css/index.css">
+  <title>Cadastro de arquivos</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <style>
-        .content-box {
-            background-color: #fcf8f8;
-            border-radius: 1rem;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            
-        }
-    </style>
+  <style>
+    .content-box {
+      background-color: #fcf8f8;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      padding: 10px;
+
+    }
+  </style>
 </head>
 
 <body>
-    <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-        <div class="layout-container flex h-full grow flex-col">
-            <!--<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3e7e8] px-10 py-3">
+  <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+    <div class="layout-container flex h-full grow flex-col">
+      <!--<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3e7e8] px-10 py-3">
           <div class="flex items-center gap-4 text-[#1b0e0e]">
             <div class="size-4">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,175 +71,190 @@
             ></div>
           </div>
         </header>-->
-            <main>
-                <div class="px-40 flex flex-1 justify-center py-5">
-                    <div class="layout-content-container content-box flex flex-col max-w-[960px] flex-1">
-                        <div class="flex flex-wrap justify-between gap-3 p-4">
-                            <p class="text-[#1b0e0e] tracking-light text-[32px] font-bold leading-tight min-w-72">Cadastro de anuncios</p>
-                        </div>
-                        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
-                            Arquivos enviados</h3>
-                        <div class="flex px-4 py-3 justify-end">
-                            <button id="deletar"
-                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
-                                <span class="truncate">Remove</span>
-                            </button>
-                        </div>
-                        <div class="px-4 py-3 @container">
-                            <div class="flex overflow-hidden rounded-xl border border-[#e7d0d1] bg-[#fcf8f8]">
-                                <form action="/cadastro/delete" method="post" enctype="multipart/form-data"
-                                    id="form-delete">
-                                    <table class="flex-1">
-                                        <thead>
-                                            <tr class="bg-[#fcf8f8]">
-                                                <th
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 px-4 py-3 text-left text-[#1b0e0e] text-sm font-medium leading-normal">
-                                                </th>
-                                                <th
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
-                                                    Nome do arquivo
-                                                </th>
-                                                <th
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
-                                                    tamanho</th>
-                                                <th
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
-                                                    Date de envio
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% with anuncios = anuncios%} {% if anuncios %} {% for cada in anuncios %}
-                                            <tr class="border-t border-t-[#e7d0d1]">
-                                                <td
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 h-[72px] px-4 py-2 text-sm font-normal leading-normal">
-                                                    <input type="checkbox" name="selecionados" id="{{cada.id}}" value="{{cada.id}}"
-                                                        class="h-4 w-4 rounded border-[#808080] text-[#ea2832] focus:ring-0">
-                                                </td>
-                                                <td
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 h-[72px] px-4 py-2 w-[400px] text-[#1b0e0e] text-sm font-normal leading-normal">
-                                                    {{ cada.nome }}
-                                                </td>
-                                                <td
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 h-[72px] px-4 py-2 w-[400px] text-[#994d51] text-sm font-normal leading-normal">
-                                                    {{ cada.tamanho }} MB
-                                                </td>
-                                                <td
-                                                    class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 h-[72px] px-4 py-2 w-[400px] text-[#994d51] text-sm font-normal leading-normal">
-                                                    {{ cada.data_criacao }}
-                                                </td>
-                                            </tr>
-                                            {% endfor %} {%endif%} {%endwith%}
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
-                        <form action="/" method="post" enctype="multipart/form-data">
-                            <h3
-                                class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
-                                Novos Arquivos</h3>
-                            <div class="flex flex-col p-4">
-                                <div
-                                    class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#e7d0d1] px-6 py-14">
-                                    <span id="file-name"
-                                        class="text-[#1b0e0e] text-sm font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4"></span>
-                                    <div id="preview-container" class="flex items-center gap-2 flex-wrap">
+      <main>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container content-box flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <p class="text-[#1b0e0e] tracking-light text-[32px] font-bold leading-tight min-w-72">Cadastro de anuncios
+              </p>
+            </div>
+            <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+              Arquivos enviados</h3>
+            <div class="flex px-4 py-3 justify-end">
+              <button id="deletar"
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
+                <span class="truncate">Remove</span>
+              </button>
+            </div>
+            <div class="px-4 py-3 @container">
+              <div class="flex overflow-hidden rounded-xl border border-[#e7d0d1] bg-[#fcf8f8]">
+                <form action="/cadastro/delete" method="post" enctype="multipart/form-data" id="form-delete">
+                  <table class="flex-1">
+                    <thead>
+                      <tr class="bg-[#fcf8f8]">
+                        <th
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 px-4 py-3 text-left text-[#1b0e0e] text-sm font-medium leading-normal">
+                        </th>
+                        <th
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                          Nome do arquivo
+                        </th>
+                        <th
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                          tamanho</th>
+                        <th
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 px-4 py-3 text-left text-[#1b0e0e] w-[400px] text-sm font-medium leading-normal">
+                          Date de envio
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% with anuncios = anuncios%} {% if anuncios %} {% for cada in anuncios %}
+                      <tr class="border-t border-t-[#e7d0d1]">
+                        <td
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-120 h-[72px] px-4 py-2 text-sm font-normal leading-normal">
+                          <input type="checkbox" name="selecionados" id="{{cada.id}}" value="{{cada.id}}"
+                            class="h-4 w-4 rounded border-[#808080] text-[#ea2832] focus:ring-0">
+                        </td>
+                        <td
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-240 h-[72px] px-4 py-2 w-[400px] text-[#1b0e0e] text-sm font-normal leading-normal">
+                          {{ cada.nome }}
+                        </td>
+                        <td
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-360 h-[72px] px-4 py-2 w-[400px] text-[#994d51] text-sm font-normal leading-normal">
+                          {{ cada.tamanho }} MB
+                        </td>
+                        <td
+                          class="table-da5ca9a9-12e4-4bd5-a590-5121aa32de00-column-480 h-[72px] px-4 py-2 w-[400px] text-[#994d51] text-sm font-normal leading-normal">
+                          {{ cada.data_criacao }}
+                        </td>
+                      </tr>
+                      {% endfor %} {%endif%} {%endwith%}
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+            <form action="/" method="post" enctype="multipart/form-data">
+              <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                Novos Arquivos</h3>
+              <div class="flex flex-col p-4">
+                <div
+                  class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#e7d0d1] px-6 py-14">
+                  <span id="file-name"
+                    class="text-[#1b0e0e] text-sm font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4"></span>
+                  <div id="preview-container" class="flex items-center gap-2 flex-wrap">
 
-                                    </div>
-                                    <label class="file-label">
-                                        Escolher arquivo
-                                        <input type="file" class="file-input" id="file" name="file"
-                                            accept="image/png, image/jpeg, image/jpg, video/mp4" multiple
-                                            onchange="updateFileName()" />
-                                    </label>
+                  </div>
+                  <label class="file-label">
+                    Escolher arquivo
+                    <input type="file" class="file-input" id="file" name="file"
+                      accept="image/png, image/jpeg, image/jpg, video/mp4" multiple onchange="updateFileName()" />
+                  </label>
 
-                                </div>
-                            </div>
-                            <h3
-                                class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
-                                Mensagem</h3>
-                            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                                <label class="flex flex-col min-w-40 flex-1">
-                                    <textarea placeholder="Type your message here..." name="mensagem" id="mensagem"
-                                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b0e0e] focus:outline-0 focus:ring-0 border border-[#e7d0d1] bg-[#fcf8f8] focus:border-[#e7d0d1] min-h-36 placeholder:text-[#994d51] p-[15px] text-base font-normal leading-normal"></textarea>
-                                </label>
-                            </div>
-                            <div class="flex px-4 py-3 justify-end">
-                                <button type="submit"
-                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
-                                    <span class="truncate">ENVIAR</span>
-                                </button>
-                            </div>
-                    </div>
-
-                    </form>
                 </div>
-            </main>
+              </div>
+              <div class="flex w-full flex-wrap gap-4 px-4 py-3 justify-around">
+                <div class="flex-1">
+                  <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                    Mensagem</h3>
+                  <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                    <label class="flex flex-col min-w-40 flex-1">
+                      <textarea placeholder="Type your message here..." name="mensagem" id="mensagem"
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b0e0e] focus:outline-0 focus:ring-0 border border-[#e7d0d1] bg-[#fcf8f8] focus:border-[#e7d0d1] min-h-36 placeholder:text-[#994d51] p-[15px] text-base font-normal leading-normal"></textarea>
+                    </label>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                    Local</h3>
+                  <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                    <label class="flex flex-col min-w-40 flex-1">
+                      <input type="text" placeholder="Type your message here..." name="local" id="local"
+                        class="form-input min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b0e0e] focus:outline-0 focus:ring-0 border border-[#e7d0d1] bg-[#fcf8f8] focus:border-[#e7d0d1] placeholder:text-[#994d51] p-[15px] text-base font-normal leading-normal">
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="flex px-4 py-3 justify-end">
+                <button type="submit"
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ea2832] text-[#fcf8f8] text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">ENVIAR</span>
+                </button>
+              </div>
+          </div>
+
+          </form>
         </div>
+      </main>
     </div>
-    <script>
-        document.getElementById('deletar').addEventListener('click', function () {
-            const checkboxes = document.querySelectorAll('input[name="selecionados"]:checked');
-            if (checkboxes.length === 0) {
-                alert('selecione ao menos um arquivo para deletar');
-                return;
-            }
-            if (confirm('deseja deletar esses arquivos?')) {
-                document.getElementById('form-delete').submit();
-            }
-        });
+  </div>
+  <script>  
+    document.getElementById('local').value = "{{local}}";
 
-        function processarForm(event) {
-            const input = document.getElementById("file");
-            if (input.files.length > 0) {
-                event.preventDefault(); // Previne o envio imediato do formulário
+    document.getElementById('deletar').addEventListener('click', function () {
+      const checkboxes = document.querySelectorAll('input[name="selecionados"]:checked');
+      if (checkboxes.length === 0) {
+        alert('selecione ao menos um arquivo para deletar');
+        return;
+      }
+      if (confirm('deseja deletar esses arquivos?')) {
+        document.getElementById('form-delete').submit();
+      }
+    });
 
-                let img = new Image();
-                let file = input.files[0]; // Pegando apenas o primeiro para definir tamanho
-                img.src = URL.createObjectURL(file);
-                event.target.form.submit(); // Agora pode enviar o formulário
-            } else {
-                alert("Nenhum arquivo selecionado.");
-            }
+    function processarForm(event) {
+      const input = document.getElementById("file");
+      if (input.files.length > 0) {
+        event.preventDefault(); // Previne o envio imediato do formulário
+
+        let img = new Image();
+        let file = input.files[0]; // Pegando apenas o primeiro para definir tamanho
+        img.src = URL.createObjectURL(file);
+        event.target.form.submit(); // Agora pode enviar o formulário
+      } else {
+        alert("Nenhum arquivo selecionado.");
+      }
+    }
+
+    function updateFileName() {
+      const input = document.getElementById("file");
+      const fileName = document.getElementById("file-name");
+      const previewContainer = document.getElementById("preview-container");
+
+      previewContainer.innerHTML = ""; // Limpa o container antes de adicionar novas imagens
+      fileName.innerHTML = "";
+
+      if (input.files.length > 0) {
+        for (const file of input.files) {
+          const fileNameElement = document.createElement('p');
+          fileNameElement.textContent = file.name
+          fileName.appendChild(fileNameElement)
+
+        };
+
+        for (const file of input.files) {
+          if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              const img = document.createElement("img");
+              img.src = e.target.result;
+              img.classList.add("preview-img");
+              previewContainer.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+          }
+
         }
-
-        function updateFileName() {
-            const input = document.getElementById("file");
-            const fileName = document.getElementById("file-name");
-            const previewContainer = document.getElementById("preview-container");
-
-            previewContainer.innerHTML = ""; // Limpa o container antes de adicionar novas imagens
-            fileName.innerHTML = "";
-
-            if (input.files.length > 0) {
-                for (const file of input.files) {
-                    const fileNameElement = document.createElement('p');
-                    fileNameElement.textContent = file.name
-                    fileName.appendChild(fileNameElement)
-
-                };
-
-                for (const file of input.files) {
-                    if (file.type.startsWith("image/")) {
-                        const reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            const img = document.createElement("img");
-                            img.src = e.target.result;
-                            img.classList.add("preview-img");
-                            previewContainer.appendChild(img);
-                        };
-
-                        reader.readAsDataURL(file);
-                    }
-
-                }
-            } else {
-                fileName.textContent = "Nenhuma imagem escolhida";
-            }
-        }
-    </script>
+      } else {
+        fileName.textContent = "Nenhuma imagem escolhida";
+      }
+    }
+  </script>
 </body>
 
 </html>
