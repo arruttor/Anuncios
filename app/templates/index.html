@@ -19,10 +19,80 @@
       padding: 10px;
 
     }
+    .flash-messages {
+        position: fixed;
+        top: 8%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .alert {
+        padding: 15px;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        min-width: 450px;
+        max-width: 350px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+      }
+      .alert :first-child {
+        width: 100%;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-right: 95%;
+      }
+
+      .alert.success {
+        background-color: #4caf50;
+      } /* Verde */
+      .alert.danger {
+        background-color: #f44336;
+      } /* Vermelho */
+      .alert.warning {
+        background-color: #ff9800;
+      } /* Laranja */
+      .alert.info {
+        background-color: #2196f3;
+      } /* Azul */
+
+      .close-btn {
+        margin-top: 100px;
+        background: none;
+        border: none;
+        border-radius: 8px;
+        padding-top: 25px;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+      }
   </style>
 </head>
 
 <body>
+  <!-- Exibir mensagens flash -->
+      <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=True) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="alert {{ category }}">
+          <div><button class="close-btn">&times;</button></div>
+          <div>{{ message }}</div>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
   <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
     <div class="layout-container flex h-full grow flex-col">
       <!--<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3e7e8] px-10 py-3">
@@ -254,6 +324,24 @@
         fileName.textContent = "Nenhuma imagem escolhida";
       }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const alerts = document.querySelectorAll(".alert");
+
+        alerts.forEach((alert) => {
+          // Remove automaticamente após 5 segundos
+          setTimeout(() => {
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+          }, 1000);
+
+          // Remove ao clicar no botão de fechar
+          alert.querySelector(".close-btn").addEventListener("click", () => {
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+          });
+        });
+      });
   </script>
 </body>
 

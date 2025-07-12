@@ -17,20 +17,16 @@ def home():
             return redirect(url_for('home.home'))
         
         arquivos = request.files.getlist('file')
-        # largura = request.form['largura']
-        # altura = request.form['altura']
         mensagem = request.form['mensagem']
         local = request.form['local']
-        # if arquivo.filename == '':
-        #     flash("Nenhum arquivo selecionado!", "error")
-        #     return redirect(url_for('home'))
         Mensagem.deletar_todos()
         anuncio = []
-        for arquivo in arquivos:
-            nome_arquivo = arquivo.filename.replace(' ', '_')
-            caminho_arquivo = os.path.join(current_app.config['UPLOAD_FOLDER'], nome_arquivo)
-            arquivo.save(caminho_arquivo)
-            anuncio.append(Anuncio.criar_anuncio(nome_arquivo,tamanho=os.path.getsize(caminho_arquivo), nome=nome_arquivo)) 
+        if arquivos and not all(arquivo.filename == '' for arquivo in arquivos):
+            for arquivo in arquivos:
+                nome_arquivo = arquivo.filename.replace(' ', '_')
+                caminho_arquivo = os.path.join(current_app.config['UPLOAD_FOLDER'], nome_arquivo)
+                arquivo.save(caminho_arquivo)
+                anuncio.append(Anuncio.criar_anuncio(nome_arquivo,tamanho=os.path.getsize(caminho_arquivo), nome=nome_arquivo)) 
 
         mensagem = Mensagem.criar_mensagem(mensagem)
         local_atual = Config.get_configuracao()
@@ -42,7 +38,7 @@ def home():
         
         flash("Arquivo enviado com sucesso!", "success")
         socketio.emit('atualizar_anuncios')
-        return redirect(url_for('home.home'))
+        return redirect(url_for('cad.cadastro'))
         
     return render_template('home.html')
 
@@ -51,12 +47,14 @@ def delete():
     ids = request.form.getlist('selecionados')
     if not ids:
         flash("Nenhum arquivo selecionado para deletar.", "error")
-        return redirect(url_for('home.home'))
+        return redirect(url_for('cad.cadastro'))
     for id in ids:
         anuncio = Anuncio.query.get(id)
         if anuncio:
-            os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], anuncio.caminho))
+            caminho_arquivo = os.path.join(current_app.config['UPLOAD_FOLDER'], anuncio.caminho)
+            if os.path.exists(caminho_arquivo):
+                os.remove(caminho_arquivo)
             Anuncio.delete_select(anuncio)
     flash("Arquivos deletados com sucesso!", "success")
     socketio.emit('atualizar_anuncios')
-    return redirect(url_for('home.home'))
+    return redirect(url_for('cad.cadastro'))
