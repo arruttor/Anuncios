@@ -226,7 +226,7 @@
 
   <body>
     <header class="box header">
-      <div class="logo">
+      <div class="logo" >
         <img src="../static/img/logo-una.png" alt="" />
       </div>
       <div class="graf">
@@ -301,9 +301,8 @@
         let minutos = agora.getMinutes().toString().padStart(2, "0");
         let segundos = agora.getSeconds().toString().padStart(2, "0");
         const horaAtual = `${hora}:${minutos}:${segundos}`;
-        console.log(weekDay + "-" + horaAtual);
-        document.getElementById("horaAtual").textContent =
-          weekDay + "  " + horaAtual;
+        document.getElementById("horaAtual").innerHTML =
+        weekDay + "<br>" + horaAtual;
       }
       attRelogio();
       setInterval(attRelogio, 1000); // Atualiza a cada segundo
