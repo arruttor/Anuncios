@@ -24,3 +24,5 @@ static/uploads/
 static/anuncios/
 uploads/
 media/
+
+.sqlite
