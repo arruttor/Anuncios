@@ -1,11 +1,12 @@
+import gevent.monkey
+gevent.monkey.patch_all()
+
 from app import create_app
 from app.services.extensions import socketio
-import socket
-
+import os
 
 app = create_app()
 
 if __name__ == '__main__':
-    ip = socket.gethostbyname(socket.gethostname())
-    print(f"Servidor rodando em http://{ip}:5000")
-    socketio.run(app, host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    socketio.run(app, host="0.0.0.0", port=port, server='gevent')

@@ -4,3 +4,5 @@ gevent
 flask_socketio
 dotenv
 pytz
+eventlet
+gunicorn
