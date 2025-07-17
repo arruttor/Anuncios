@@ -1,353 +1,345 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Display</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,
-500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script>
-      const socket = io.connect(
-        "http://" + document.domain + ":" + location.port
-      );
 
-      socket.on("atualizar_anuncios", () => {
-        location.reload(); // Recarrega a página ao receber o evento
-      });
-    </script>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Display</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,
+500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script>
 
-      body,
-      html {
-        height: 100%;
-      }
+    const socket = io({
+      secure: true,
+      transports: ["websocket"]
+    });
 
-      body {
-        display: flex;
-        flex-direction: column;
-        background: linear-gradient(
-          to bottom,
+    socket.on("atualizar_anuncios", () => {
+      location.reload(); // Recarrega a página ao receber o evento
+    });
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body,
+    html {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to bottom,
           #e50727 -50%,
           #7e1572 50%,
-          #e50727 150%
-        );
-      }
+          #e50727 150%);
+    }
 
-      .box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 2vh;
-        padding: 0;
-      }
+    .box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2vh;
+      padding: 0;
+    }
 
-      .header {
-        flex: 0 0 10%;
-        justify-content: space-between;
-        /* 20% da altura */
-      }
+    .header {
+      flex: 0 0 10%;
+      justify-content: space-between;
+      /* 20% da altura */
+    }
 
-      .header .logo img {
-        width: 10vw;
-        height: auto;
-        margin-left: 20%;
-      }
+    .header .logo img {
+      width: 10vw;
+      height: auto;
+      margin-left: 20%;
+    }
 
-      .header .graf {
-        height: 100%;
-      }
+    .header .graf {
+      height: 100%;
+    }
 
-      .header .graf img {
-        width: 29vw;
-        height: 100%;
-      }
+    .header .graf img {
+      width: 29vw;
+      height: 100%;
+    }
 
-      .content {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-around;
-        flex: 1;
-        padding: 0 10px 0 10px;
-        min-height: 0; /* importante para flexbox evitar overflow */
-      }
-      .content .anuncio {
-        flex: 0 0 70%;
-        background-color: black;
-        border-radius: 20px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .content {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-around;
+      flex: 1;
+      padding: 0 10px 0 10px;
+      min-height: 0;
+      /* importante para flexbox evitar overflow */
+    }
 
-        min-height: 0; /* Permite o flexbox limitar altura */
-        height: 100%; /* Pegue altura do pai */
-        max-height: 100%; /* Limita para não ultrapassar */
-      }
+    .content .anuncio {
+      flex: 0 0 70%;
+      background-color: black;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      .carousel,
-      .carousel-inner,
-      .carousel-item {
-        height: 100%;
-        max-height: 100%;
-        min-height: 0;
-      }
-      .carousel-inner img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* ou "cover" se quiser preencher o espaço */
-        display: block;
-      }
+      min-height: 0;
+      /* Permite o flexbox limitar altura */
+      height: 100%;
+      /* Pegue altura do pai */
+      max-height: 100%;
+      /* Limita para não ultrapassar */
+    }
 
-      .carousel-inner video {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* ou "cover" se quiser preencher o espaço */
-        display: block;
-      }
+    .carousel,
+    .carousel-inner,
+    .carousel-item {
+      height: 100%;
+      max-height: 100%;
+      min-height: 0;
+    }
 
-      .carousel,
-      .carousel-inner,
-      .carousel-item {
-        height: 100%;
-      }
+    .carousel-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* ou "cover" se quiser preencher o espaço */
+      display: block;
+    }
 
-      .content .mensagem {
-        flex: 0 0 30%;
-        border: 4px solid #f2913d;
-        padding: 15px;
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-width: 30%;
-        min-width: 0;
-        overflow: hidden;
-        word-wrap: break-word;
-        padding-top: 1.7%;
-        color: rgb(233, 223, 223);
-      }
-      .content .mensagem #titulo {
-        border-radius: 15px;
-        border: 4px solid #f2913d;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #f2913d;
-        margin-bottom: 10%;
-        width: 100%;
-        height: 16%;
-      }
-      #titulo h1 {
-        font-size: 2vw;
-        margin: 0;
-        padding: 10px;
-      }
-      .mensagem h1 {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        white-space: normal;
-        width: 100%;
-        text-align: center;
-        display: block; /* <- MUITO IMPORTANTE */
-        hyphens: auto;
-        font-size: clamp(1rem, 2vw, 2.2rem);
-      }
+    .carousel-inner video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* ou "cover" se quiser preencher o espaço */
+      display: block;
+    }
 
-      .footer {
-        flex: 0 0 10%;
-        justify-content: space-between;
-        /* 10% da altura */
-      }
+    .carousel,
+    .carousel-inner,
+    .carousel-item {
+      height: 100%;
+    }
 
-      .footer h1 {
-        margin-top: 5px;
-        font-size: 1.8vw;
-        color: white;
-        text-align: center;
-      }
+    .content .mensagem {
+      flex: 0 0 30%;
+      border: 4px solid #f2913d;
+      padding: 15px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 30%;
+      min-width: 0;
+      overflow: hidden;
+      word-wrap: break-word;
+      padding-top: 1.7%;
+      color: rgb(233, 223, 223);
+    }
 
-      .footer .hora {
-        margin-left: 8%;
-        color: white;
-        flex: 0 0 30%;
-      }
-        .footer .local {
-            flex: 0 0 30%;
-        }
-        .footer .grafismo {
-        flex: 1;
-        }
+    .content .mensagem #titulo {
+      border-radius: 15px;
+      border: 4px solid #f2913d;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #f2913d;
+      margin-bottom: 10%;
+      width: 100%;
+      height: 16%;
+    }
 
-      p,
-      h1 {
-        text-align: center;
-        max-width: 90%;
-      }
-      
-    </style>
-  </head>
+    #titulo h1 {
+      font-size: 2vw;
+      margin: 0;
+      padding: 10px;
+    }
 
-  <body>
-    <header class="box header">
-      <div class="logo" >
-        <img src="../static/img/logo-una.png" alt="" />
-      </div>
-      <div class="graf">
-        <img src="../static/img/grafismo1.png" alt="" />
-      </div>
-    </header>
+    .mensagem h1 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      width: 100%;
+      text-align: center;
+      display: block;
+      /* <- MUITO IMPORTANTE */
+      hyphens: auto;
+      font-size: clamp(1rem, 2vw, 2.2rem);
+    }
 
-    <main class="box content">
-      <div class="anuncio">
-        <div
-          id="carouselExampleSlidesOnly"
-          class="carousel slide"
-          data-ride="carousel"
-        >
-          <div class="carousel-inner">
-            {% with anuncios = anuncios%} {% if anuncios %} {% for cada in
-            anuncios %} {%if ".mp4" in cada%}
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
-              <video
-                class="d-block .video-slide"
-                muted
-                autoplay
-                controls
-                alt="Second slide"
-              >
-                <source src="{{cada}}" type="video/mp4" />
-              </video>
-            </div>
-            {%else%}
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
-              <img class="d-block" src="{{cada}}" alt="Second slide" />
-            </div>
-            {%endif%} {% endfor %} {% endif %} {%endwith%}
+    .footer {
+      flex: 0 0 10%;
+      justify-content: space-between;
+      /* 10% da altura */
+    }
+
+    .footer h1 {
+      margin-top: 5px;
+      font-size: 1.8vw;
+      color: white;
+      text-align: center;
+    }
+
+    .footer .hora {
+      margin-left: 8%;
+      color: white;
+      flex: 0 0 30%;
+    }
+
+    .footer .local {
+      flex: 0 0 30%;
+    }
+
+    .footer .grafismo {
+      flex: 1;
+    }
+
+    p,
+    h1 {
+      text-align: center;
+      max-width: 90%;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="box header">
+    <div class="logo">
+      <img src="../static/img/logo-una.png" alt="" />
+    </div>
+    <div class="graf">
+      <img src="../static/img/grafismo1.png" alt="" />
+    </div>
+  </header>
+
+  <main class="box content">
+    <div class="anuncio">
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          {% with anuncios = anuncios%} {% if anuncios %} {% for cada in
+          anuncios %} {%if ".mp4" in cada%}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <video class="d-block .video-slide" muted autoplay controls alt="Second slide">
+              <source src="{{cada}}" type="video/mp4" />
+            </video>
           </div>
+          {%else%}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <img class="d-block" src="{{cada}}" alt="Second slide" />
+          </div>
+          {%endif%} {% endfor %} {% endif %} {%endwith%}
         </div>
       </div>
-      <div class="mensagem">
-        <div id="titulo">
-          <h1>Mensagem do dia</h1>
-        </div>
-        {% if mensagem %}
-        <h1>{{ mensagem }}</h1>
-        {% endif %}
+    </div>
+    <div class="mensagem">
+      <div id="titulo">
+        <h1>Mensagem do dia</h1>
       </div>
-    </main>
+      {% if mensagem %}
+      <h1>{{ mensagem }}</h1>
+      {% endif %}
+    </div>
+  </main>
 
-    <footer class="box footer">
-      <div class="local">
-        <h1 id="localAtual">{{local}}</h1>
-      </div>
-      <div class="hora">
-        <h1 id="horaAtual"></h1>
-      </div>
-      <div class="grafismo">
-        <img src="../static/img/grafismo2.png" alt="" />
-      </div>
-    </footer>
+  <footer class="box footer">
+    <div class="local">
+      <h1 id="localAtual">{{local}}</h1>
+    </div>
+    <div class="hora">
+      <h1 id="horaAtual"></h1>
+    </div>
+    <div class="grafismo">
+      <img src="../static/img/grafismo2.png" alt="" />
+    </div>
+  </footer>
 
-    <script>
-      function attRelogio() {
-        let agora = new Date();
-        let week = new Array(7);
-        week[0] = "Domingo";
-        week[1] = "Segunda-feira";
-        week[2] = "Terça-feira";
-        week[3] = "Quarta-feira";
-        week[4] = "Quinta-feira";
-        week[5] = "Sexta-feira";
-        week[6] = "Sábado";
-        let weekDay = week[agora.getDay()];
-        let hora = agora.getHours().toString().padStart(2, "0");
-        let minutos = agora.getMinutes().toString().padStart(2, "0");
-        let segundos = agora.getSeconds().toString().padStart(2, "0");
-        const horaAtual = `${hora}:${minutos}:${segundos}`;
-        document.getElementById("horaAtual").innerHTML =
+  <script>
+    function attRelogio() {
+      let agora = new Date();
+      let week = new Array(7);
+      week[0] = "Domingo";
+      week[1] = "Segunda-feira";
+      week[2] = "Terça-feira";
+      week[3] = "Quarta-feira";
+      week[4] = "Quinta-feira";
+      week[5] = "Sexta-feira";
+      week[6] = "Sábado";
+      let weekDay = week[agora.getDay()];
+      let hora = agora.getHours().toString().padStart(2, "0");
+      let minutos = agora.getMinutes().toString().padStart(2, "0");
+      let segundos = agora.getSeconds().toString().padStart(2, "0");
+      const horaAtual = `${hora}:${minutos}:${segundos}`;
+      document.getElementById("horaAtual").innerHTML =
         weekDay + "<br>" + horaAtual;
+    }
+    attRelogio();
+    setInterval(attRelogio, 1000); // Atualiza a cada segundo
+    document.addEventListener("DOMContentLoaded", function () {
+      const carousel = $("#carouselExampleSlidesOnly");
+
+      function stopAllVideos() {
+        const videos = document.querySelectorAll("video");
+        videos.forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+        });
       }
-      attRelogio();
-      setInterval(attRelogio, 1000); // Atualiza a cada segundo
-      document.addEventListener("DOMContentLoaded", function () {
-        const carousel = $("#carouselExampleSlidesOnly");
 
-        function stopAllVideos() {
-          const videos = document.querySelectorAll("video");
-          videos.forEach((video) => {
-            video.pause();
-            video.currentTime = 0;
-          });
+      function setSlideInterval() {
+        const activeSlide = document.querySelector(".carousel-item.active");
+        const video = activeSlide.querySelector("video");
+
+        if (video) {
+          carousel.carousel("pause");
+          video.play().catch((err) => console.error(err));
+
+          video.onended = function () {
+            carousel.carousel("next");
+          };
+        } else {
+          // Avança após 5 segundos
+          setTimeout(() => {
+            carousel.carousel("next");
+          }, 10000);
         }
+      }
 
-        function setSlideInterval() {
-          const activeSlide = document.querySelector(".carousel-item.active");
-          const video = activeSlide.querySelector("video");
+      carousel.on("slide.bs.carousel", function () {
+        stopAllVideos();
+      });
 
-          if (video) {
-            carousel.carousel("pause");
-            video.play().catch((err) => console.error(err));
-
-            video.onended = function () {
-              carousel.carousel("next");
-            };
-          } else {
-            // Avança após 5 segundos
-            setTimeout(() => {
-              carousel.carousel("next");
-            }, 10000);
-          }
-        }
-
-        carousel.on("slide.bs.carousel", function () {
-          stopAllVideos();
-        });
-
-        carousel.on("slid.bs.carousel", function () {
-          setSlideInterval();
-        });
-
-        // Inicia o carrossel manualmente e executa o controle
-        carousel.carousel({ interval: false, pause: true });
+      carousel.on("slid.bs.carousel", function () {
         setSlideInterval();
       });
-    </script>
-  </body>
+
+      // Inicia o carrossel manualmente e executa o controle
+      carousel.carousel({ interval: false, pause: true });
+      setSlideInterval();
+    });
+  </script>
+</body>
+
 </html>
